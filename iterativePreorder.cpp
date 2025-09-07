@@ -1,4 +1,6 @@
 #include<iostream>
+#include<stack>
+#include<vector>
 using namespace std;
  struct Node{
     int val ;
@@ -25,15 +27,22 @@ using namespace std;
      root->right = buildTree();
      return root;
   }
-  void preorderTraversal(Node * root) {
-  if(root == nullptr) return ;
-   cout<<root->val<<" ";
-   preorderTraversal(root->left);
-   preorderTraversal(root->right);
+  void preorderTraversal(Node * root , vector<int> &ans){ 
+    stack<Node*>st;
+    st.push(root);
+    while(!st.empty()){
+        Node * node = st.top();
+        st.pop();
+        ans.push_back(node->val);
+        if(node->right) st.push(node->right);
+        if(node->left) st.push(node->left);
+    }
   }
 int main()
 {
     Node* root = buildTree();
-    preorderTraversal(root);  
+    vector<int> ans;
+    preorderTraversal(root,ans);  
+    for(auto i : ans) cout<<i<<" ";
     return 0;
 }
