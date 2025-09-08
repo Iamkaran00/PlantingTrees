@@ -22,7 +22,20 @@ struct Node{
      root->right = buildTree();
      return root;
   }
+ void iterativePostOrder(Node* root,vector<int>& ans) {
+  stack<Node*>st;
+  st.push(root);
+  while(!st.empty()) {
+       Node * node = st.top();
+        ans.push_back(node->data);
+        if(node->left) st.push(node->left);
+        if(node->right) st.push(node->right);
+  }
+
+ }
 int main() {
-
-
+Node * root = buildTree();
+vector<int>ans;
+ iterativePostOrder(root,ans);
+ return 0;
 }
